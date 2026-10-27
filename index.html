@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Name | Portfolio</title>
+  <meta name="description" content="Personal portfolio of Your Name.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <header class="nav">
+    <a href="#about" class="nav__brand">YN</a>
+    <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+    <nav class="nav__links" id="nav-links">
+      <a href="#about">About Me</a>
+    </nav>
+  </header>
+
+  <main id="home">
+
+    <!-- HERO / ABOUT -->
+    <section id="about" class="hero">
+      <!-- Image slot: put your photo at assets/images/me/photo.jpg, then replace the div with <img> -->
+      <div class="img-slot img-slot--portrait" role="img" aria-label="Profile photo placeholder"></div>
+      <div class="hero__text">
+        <h1>Your Full Name</h1>
+        <p class="hero__sub">Your Year &amp; Course &bull; Your School</p>
+        <p>Short intro about yourself. Mention your interests, for example
+          <strong>Web Development</strong>, <strong>Game Development</strong>,
+          <strong>Cybersecurity</strong>, and <strong>Operating Systems</strong>.</p>
+        <p>Add a second paragraph about what drives you, what you enjoy building,
+          and where you want to go next.</p>
+        <div class="socials">
+          <a href="mailto:you@example.com" title="Mail">Mail</a>
+          <a href="https://github.com/your-username" title="GitHub" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://facebook.com/your-profile" title="Facebook" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://instagram.com/your-profile" title="Instagram" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Your Name. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
