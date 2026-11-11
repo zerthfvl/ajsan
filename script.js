@@ -61,30 +61,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 window.addEventListener('hashchange', () => showPage(location.hash.slice(1)));
 showPage(location.hash.slice(1));
 
-// ---------- Typing effect ----------
-const roles = [
-  'BSIT student',
-  'Web Technology major',
-  'Front-end enthusiast',
-  'curious coder',
-  'future web developer'
-];
-const typedEl = document.getElementById('typed');
-if (reduceMotion) {
-  typedEl.textContent = roles[0];
-} else {
-  let r = 0, c = 0, deleting = false;
-  (function tick() {
-    const word = roles[r];
-    typedEl.textContent = word.slice(0, c);
-    let delay = deleting ? 38 : 85;
-    if (!deleting && c === word.length) { deleting = true; delay = 1500; }
-    else if (deleting && c === 0) { deleting = false; r = (r + 1) % roles.length; delay = 350; }
-    else { c += deleting ? -1 : 1; }
-    setTimeout(tick, delay);
-  })();
-}
-
 // ---------- Photo: 3D tilt + shine + tap-to-toggle logos ----------
 const wrap = document.getElementById('photoWrap');
 const frame = document.getElementById('photoFrame');
