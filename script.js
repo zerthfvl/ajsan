@@ -11,7 +11,7 @@ let canvasColors = () => {};
 function applyTheme(t, save) {
   root.setAttribute('data-theme', t);
   themeBtn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-  if (themeMeta) themeMeta.content = t === 'dark' ? '#070a10' : '#f4f7fb';
+  if (themeMeta) themeMeta.content = t === 'dark' ? '#050505' : '#faf6ea';
   if (save) { try { localStorage.setItem('theme', t); } catch (e) {} }
   canvasColors();
 }
@@ -45,6 +45,7 @@ function showPage(id) {
     s.classList.toggle('active', on);
     if (on) s.scrollTop = 0;
   });
+  document.body.dataset.page = id;
   navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
 }
 
@@ -135,7 +136,7 @@ const canvas = document.getElementById('net');
 if (canvas && !reduceMotion) {
   const ctx = canvas.getContext('2d');
   let w, h, dots = [];
-  let dotRGB = '94,234,212', linkRGB = '56,189,248';
+  let dotRGB = '212,175,55', linkRGB = '245,215,110';
   canvasColors = () => {
     const cs = getComputedStyle(root);
     dotRGB = cs.getPropertyValue('--dot-rgb').trim() || dotRGB;
@@ -188,3 +189,72 @@ if (canvas && !reduceMotion) {
   }
   frameLoop();
 }
+
+
+// ---------- Achievements: hover / tap / focus to show award proof ----------
+(function () {
+  const pop = document.getElementById('proof');
+  const img = document.getElementById('proofImg');
+  const tTitle = document.getElementById('proofTitle');
+  const tSchool = document.getElementById('proofSchool');
+  const items = document.querySelectorAll('.achv__item');
+  let current = null;
+
+  function place(x, y) {
+    const pw = pop.offsetWidth, ph = pop.offsetHeight, m = 14;
+    let left = x + 22, top = y - ph / 2;
+    if (left + pw > innerWidth - m) left = x - pw - 22;
+    if (left < m) left = Math.max(m, (innerWidth - pw) / 2);
+    top = Math.min(Math.max(m, top), innerHeight - ph - m);
+    pop.style.left = left + 'px'; pop.style.top = top + 'px';
+  }
+  function placeBelow(el) {
+    const r = el.getBoundingClientRect(), pw = pop.offsetWidth, ph = pop.offsetHeight, m = 12;
+    let left = Math.min(Math.max(m, r.left + r.width / 2 - pw / 2), innerWidth - pw - m);
+    let top = r.bottom + 10;
+    if (top + ph > innerHeight - m) top = Math.max(m, r.top - ph - 10);
+    pop.style.left = left + 'px'; pop.style.top = top + 'px';
+  }
+  function show(el, x, y) {
+    current = el;
+    pop.classList.remove('has-img');
+    img.onload = () => { if (current === el) pop.classList.add('has-img'); };
+    img.onerror = () => pop.classList.remove('has-img');
+    img.alt = 'Award proof: ' + el.dataset.title;
+    img.src = el.dataset.proof;
+    tTitle.textContent = el.dataset.title;
+    tSchool.textContent = el.dataset.school;
+    pop.setAttribute('aria-hidden', 'false');
+    pop.classList.add('show');
+    if (x == null) placeBelow(el); else place(x, y);
+  }
+  function hide() {
+    current = null;
+    pop.classList.remove('show');
+    pop.setAttribute('aria-hidden', 'true');
+    items.forEach(i => i.classList.remove('open'));
+  }
+
+  const hoverable = matchMedia('(hover: hover)').matches;
+  items.forEach(el => {
+    if (hoverable) {
+      el.addEventListener('mouseenter', e => show(el, e.clientX, e.clientY));
+      el.addEventListener('mousemove', e => place(e.clientX, e.clientY));
+      el.addEventListener('mouseleave', hide);
+    } else {
+      // Touch: tap to open, tap again (or elsewhere) to close
+      el.addEventListener('click', e => {
+        e.stopPropagation();
+        const wasOpen = current === el;
+        hide();
+        if (!wasOpen) { el.classList.add('open'); show(el); }
+      });
+    }
+    el.addEventListener('focus', () => { if (!el.matches(':focus-visible')) return; el.classList.add('open'); show(el); });
+    el.addEventListener('blur', hide);
+  });
+  document.addEventListener('click', e => { if (!e.target.closest('.achv__item')) hide(); });
+  // Hide when switching pages
+  window.addEventListener('hashchange', hide);
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', hide));
+})();
