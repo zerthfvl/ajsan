@@ -345,11 +345,11 @@ body:not([data-page="home"]) .back-home { display: grid; animation: pop .35s cub
 
 /* ---------- Achievements page (fits one screen) ---------- */
 .achv { padding: clamp(14px, 2.4vh, 28px) max(4vw, calc((100vw - 1100px) / 2)); }
-.achv__inner { min-height: 100%; display: flex; flex-direction: column; justify-content: center; gap: clamp(12px, 2.4vh, 26px); font-size: clamp(.85rem, 1.9vh, 1.05rem); }
-.achv__list { display: grid; gap: clamp(10px, 2vh, 20px); }
+.achv__inner { min-height: 100%; display: flex; flex-direction: column; justify-content: center; gap: clamp(8px, 1.8vh, 22px); font-size: clamp(.8rem, 1.8vh, 1.02rem); }
+.achv__list { display: grid; gap: clamp(7px, 1.4vh, 16px); }
 .achv__item {
   display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: clamp(12px, 2vw, 24px);
-  padding: clamp(14px, 2.8vh, 28px) clamp(16px, 2.6vw, 34px); cursor: pointer; outline: none;
+  padding: clamp(8px, 1.8vh, 22px) clamp(16px, 2.6vw, 34px); cursor: pointer; outline: none;
   border-left: 3px solid var(--accent); position: relative;
 }
 .achv__item:hover, .achv__item:focus-visible, .achv__item.open {
@@ -357,7 +357,7 @@ body:not([data-page="home"]) .back-home { display: grid; animation: pop .35s cub
   box-shadow: 0 18px 40px -22px rgba(var(--dot-rgb), .55); background: rgba(var(--dot-rgb), .09);
 }
 .achv__icon {
-  display: grid; place-items: center; width: clamp(42px, 7vh, 62px); height: clamp(42px, 7vh, 62px); border-radius: 14px;
+  display: grid; place-items: center; width: clamp(36px, 6vh, 56px); height: clamp(36px, 6vh, 56px); border-radius: 14px;
   color: var(--accent); background: var(--chip-bg); border: 1px solid var(--chip-line);
 }
 .achv__icon svg { width: 55%; height: 55%; }
@@ -370,6 +370,10 @@ body:not([data-page="home"]) .back-home { display: grid; animation: pop .35s cub
 }
 .achv__hint svg { width: 18px; height: 18px; }
 .achv__item:hover .achv__hint, .achv__item:focus-visible .achv__hint, .achv__item.open .achv__hint { color: var(--accent); }
+.achv__paper { color: var(--text) !important; font-size: .92em !important; line-height: 1.4; }
+.achv__doi { font-size: .85em !important; margin-top: .25em !important; overflow-wrap: anywhere; }
+.achv__doi a { color: var(--accent-2); text-decoration: underline; text-underline-offset: 3px; }
+.achv__doi a:hover { color: var(--accent); }
 .achv__tip { color: var(--muted); font-size: .85em; text-align: center; }
 
 /* ---------- Award proof popup ---------- */
@@ -463,11 +467,12 @@ body:not([data-page="home"]) .back-home { display: grid; animation: pop .35s cub
 @media (max-width: 820px) {
   .achv { padding: 12px 5vw; }
   .achv__inner { justify-content: flex-start; }
-  .achv__item { grid-template-columns: auto 1fr; padding: 12px 14px; }
-  .achv__hint { grid-column: 2; font-size: .7em; }
+  .achv__item { grid-template-columns: auto 1fr auto; padding: 10px 12px; gap: 12px; }
+  .achv__hint { font-size: 0; gap: 0; }
+  .achv__hint svg { width: 20px; height: 20px; }
   .achv__text h3 { font-size: 1.05em; letter-spacing: .04em; }
   .achv__text p { font-size: .9em; }
-  .achv__icon { width: 40px; height: 40px; }
+  .achv__icon { width: 36px; height: 36px; }
   .achv__item:hover, .achv__item.open { transform: none; }
 }
 @media (max-width: 480px) {

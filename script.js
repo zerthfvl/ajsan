@@ -224,6 +224,7 @@ if (canvas && !reduceMotion) {
     } else {
       // Touch: tap to open, tap again (or elsewhere) to close
       el.addEventListener('click', e => {
+        if (e.target.closest('a')) return;
         e.stopPropagation();
         const wasOpen = current === el;
         hide();
