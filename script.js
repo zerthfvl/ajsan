@@ -174,9 +174,11 @@ if (canvas && !reduceMotion) {
   const tTitle = document.getElementById('proofTitle');
   const tSchool = document.getElementById('proofSchool');
   const items = document.querySelectorAll('.achv__item');
-  let current = null;
+  const tNote = document.getElementById('proofNote');
+  let current = null, lx = null, ly = null;
 
   function place(x, y) {
+    lx = x; ly = y;
     const pw = pop.offsetWidth, ph = pop.offsetHeight, m = 14;
     let left = x + 22, top = y - ph / 2;
     if (left + pw > innerWidth - m) left = x - pw - 22;
@@ -194,12 +196,14 @@ if (canvas && !reduceMotion) {
   function show(el, x, y) {
     current = el;
     pop.classList.remove('has-img');
-    img.onload = () => { if (current === el) pop.classList.add('has-img'); };
+    img.onload = () => { if (current === el) { pop.classList.add('has-img'); if (lx == null) placeBelow(el); else place(lx, ly); } };
     img.onerror = () => pop.classList.remove('has-img');
     img.alt = 'Award proof: ' + el.dataset.title;
     img.src = el.dataset.proof;
     tTitle.textContent = el.dataset.title;
     tSchool.textContent = el.dataset.school;
+    tNote.textContent = el.dataset.note || '';
+    lx = x; ly = y;
     pop.setAttribute('aria-hidden', 'false');
     pop.classList.add('show');
     if (x == null) placeBelow(el); else place(x, y);
