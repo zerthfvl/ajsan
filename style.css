@@ -344,12 +344,13 @@ body:not([data-page="home"]) .back-home { display: grid; animation: pop .35s cub
 @keyframes pop { from { opacity: 0; transform: scale(.5); } }
 
 /* ---------- Achievements page (fits one screen) ---------- */
-.achv { padding: clamp(14px, 2.4vh, 28px) max(4vw, calc((100vw - 1100px) / 2)); }
-.achv__inner { min-height: 100%; display: flex; flex-direction: column; justify-content: center; gap: clamp(8px, 1.8vh, 22px); font-size: clamp(.8rem, 1.8vh, 1.02rem); }
-.achv__list { display: grid; gap: clamp(7px, 1.4vh, 16px); }
+.achv { padding: clamp(12px, 2vh, 24px) clamp(16px, 3.2vw, 64px); }
+.achv__inner { min-height: 100%; display: flex; flex-direction: column; justify-content: flex-start; gap: clamp(8px, 1.6vh, 20px); font-size: clamp(.85rem, 2.3vh, 1.35rem); }
+.achv__list { display: grid; flex: 1 1 auto; gap: clamp(8px, 1.6vh, 18px); }
+@media (min-width: 821px) { .achv__list { grid-auto-rows: minmax(0, 1fr); } }
 .achv__item {
   display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: clamp(12px, 2vw, 24px);
-  padding: clamp(8px, 1.8vh, 22px) clamp(16px, 2.6vw, 34px); cursor: pointer; outline: none;
+  padding: clamp(8px, 1.6vh, 28px) clamp(18px, 3vw, 56px); cursor: pointer; outline: none;
   border-left: 3px solid var(--accent); position: relative;
 }
 .achv__item:hover, .achv__item:focus-visible, .achv__item.open {
@@ -357,11 +358,11 @@ body:not([data-page="home"]) .back-home { display: grid; animation: pop .35s cub
   box-shadow: 0 18px 40px -22px rgba(var(--dot-rgb), .55); background: rgba(var(--dot-rgb), .09);
 }
 .achv__icon {
-  display: grid; place-items: center; width: clamp(36px, 6vh, 56px); height: clamp(36px, 6vh, 56px); border-radius: 14px;
+  display: grid; place-items: center; width: clamp(38px, 8vh, 84px); height: clamp(38px, 8vh, 84px); border-radius: 16px;
   color: var(--accent); background: var(--chip-bg); border: 1px solid var(--chip-line);
 }
 .achv__icon svg { width: 55%; height: 55%; }
-.achv__text h3 { font-family: var(--font-head); font-size: 1.3em; letter-spacing: .06em; text-transform: uppercase; line-height: 1.25; transition: color .25s; }
+.achv__text h3 { font-family: var(--font-head); font-size: 1.4em; letter-spacing: .06em; text-transform: uppercase; line-height: 1.25; transition: color .25s; }
 .achv__text p { color: var(--p-text); font-size: 1em; margin-top: .2em; }
 .achv__item:hover h3, .achv__item:focus-visible h3, .achv__item.open h3 { color: var(--accent); }
 .achv__hint {
