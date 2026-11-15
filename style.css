@@ -393,6 +393,31 @@ body:not([data-page="home"]) .back-home { display: grid; animation: pop .35s cub
 .proof__note:empty { display: none; }
 .proof__cap span { font-size: .8rem; color: var(--p-text); line-height: 1.35; }
 
+
+/* ---------- Family and Friends (fits one screen) ---------- */
+.fam { padding: clamp(10px, 1.8vh, 22px) clamp(16px, 3.2vw, 64px); overflow: hidden !important; }
+.fam__inner { height: 100%; min-height: 0; display: flex; flex-direction: column; gap: clamp(8px, 1.8vh, 22px); }
+.fam .about__head h2 { font-size: min(clamp(1.4rem, 3vw, 2.4rem), 5vh); }
+.fam__grid { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); gap: clamp(10px, 1.8vw, 28px); }
+.fam__card { display: flex; flex-direction: column; gap: clamp(6px, 1.2vh, 12px); min-height: 0; min-width: 0; margin: 0; }
+.fam__frame {
+  position: relative; flex: 1 1 0; min-height: 0; border-radius: var(--radius); overflow: hidden;
+  background: var(--card); border: 1.5px dashed var(--chip-line); transition: transform .3s, border-color .3s, box-shadow .3s;
+}
+.fam__card:hover .fam__frame { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 20px 44px -22px rgba(var(--dot-rgb), .6); }
+.fam__ph { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 8px; color: var(--accent); opacity: .75;
+  font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+.fam__ph svg { width: clamp(30px, 6vh, 52px); height: clamp(30px, 6vh, 52px); }
+.fam__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.fam__card:hover .fam__frame img { transform: scale(1.04); }
+.fam__frame:has(img) { border-style: solid; }
+.fam figcaption { font-family: var(--font-head); font-size: clamp(.8rem, 1.25vw, 1.05rem); letter-spacing: .1em; text-align: center; color: var(--accent); flex: none; }
+@media (max-width: 820px) {
+  .fam { padding: 12px 5vw; }
+  .fam__grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(2, minmax(0, 1fr)); }
+  .fam .about__head { display: none; }
+}
+
 /* ---------- Footer ---------- */
 .footer { position: relative; z-index: 2; flex: 0 0 auto; text-align: center; padding: 10px 6vw; color: var(--muted); border-top: 1px solid var(--line); font-size: .85rem; background: var(--footer-bg); backdrop-filter: blur(10px); }
 
