@@ -65,7 +65,8 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }
-html, body { height: 100%; }
+html, body { height: 100%; overflow: hidden; }
+body { height: 100dvh; }
 body {
   font-family: var(--font-body);
   background: var(--bg);
@@ -147,7 +148,8 @@ ul, ol { list-style: none; }
 
 /* ---------- Single-screen pages ---------- */
 main { position: relative; z-index: 2; flex: 1 1 auto; min-height: 0; }
-main > section { display: none; height: 100%; width: 100%; overflow-y: auto; overflow-x: hidden; }
+main > section { display: none; height: 100%; width: 100%; overflow: hidden; }
+main > section.measuring .reveal { transform: none !important; transition: none !important; }
 main > section.active { display: block; }
 main > section.hero.active { display: grid; align-content: center; }
 
@@ -484,7 +486,7 @@ body:not([data-page="home"]) .back-home { display: grid; animation: pop .35s cub
   .facts__id { display: none; }
 }
 @media (max-width: 820px) {
-  .achv { padding: 12px 5vw; overflow-y: auto !important; }
+  .achv { padding: 12px 5vw; }
   .achv__inner { height: auto; }
   .achv__cols { grid-template-columns: 1fr; grid-template-rows: none; }
   .achv__list { grid-auto-rows: auto; }

@@ -44,10 +44,45 @@ function showPage(id) {
     const on = s.id === id;
     s.classList.toggle('active', on);
     if (on) s.scrollTop = 0;
+    else { s.style.transform = s.style.width = s.style.height = ''; }
   });
   document.body.dataset.page = id;
   navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+  fitActivePage();
 }
+
+// ---------- Auto-fit: every page always fits its screen, never scrolls ----------
+function fitActivePage() {
+  const s = document.querySelector('main > section.active');
+  if (!s) return;
+  const MIN = 0.4;
+  const apply = z => {
+    if (z >= 1) { s.style.transform = s.style.width = s.style.height = s.style.transformOrigin = ''; return; }
+    s.style.transformOrigin = '0 0';
+    s.style.width = (100 / z) + '%';
+    s.style.height = (100 / z) + '%';
+    s.style.transform = 'scale(' + z + ')';
+  };
+  const fits = () => s.scrollHeight <= s.clientHeight + 1 && s.scrollWidth <= s.clientWidth + 1;
+  s.classList.add('measuring');           // freeze entrance animations while measuring
+  apply(1);
+  if (!fits()) {
+    let lo = MIN, hi = 1;
+    for (let i = 0; i < 8; i++) {
+      const mid = (lo + hi) / 2;
+      apply(mid);
+      if (fits()) lo = mid; else hi = mid;
+    }
+    apply(lo);
+  }
+  s.classList.remove('measuring');
+}
+let fitTimer;
+const refit = () => { clearTimeout(fitTimer); fitTimer = setTimeout(fitActivePage, 60); };
+window.addEventListener('resize', refit);
+window.addEventListener('orientationchange', refit);
+window.addEventListener('load', fitActivePage);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitActivePage);
 
 // Intercept nav clicks (also the brand link) so the page never jumps/scrolls
 document.querySelectorAll('a[href^="#"]').forEach(a => {
